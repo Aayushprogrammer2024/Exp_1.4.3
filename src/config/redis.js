@@ -1,17 +1,19 @@
 import { createClient } from 'redis';
 
-// Create a Redis client instance
-const redisClient = createClient();
+// Create Redis client using environment variable
+const redisClient = createClient({
+    url: process.env.REDIS_URL
+});
 
-// Handle Redis connection errors
+// Handle Redis errors
 redisClient.on('error', (err) => {
     console.error('Redis Error:', err);
 });
 
-// Function to connect to Redis
+// Connect function
 const connectRedis = async () => {
     await redisClient.connect();
-    console.log('✅ Redis Connected');
+    console.log("✅ Redis Connected");
 };
 
 export { redisClient, connectRedis };
